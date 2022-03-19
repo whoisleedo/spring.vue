@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+	<div id="app">
+		
+	    <table>
+	        <thead>
+	            <tr>
+	                <th>姓名</th>
+	                <th>Email</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr v-for="user in items">
+	                <td>{{ user.username }}</td>
+	                <td>{{ user.email }}</td>
+	            </tr>
+	        </tbody>
+	    </table>
+    </div>
+
+<script src="https://unpkg.com/vue@3"></script>
+
+<script>
+var app = Vue.createApp({
+	data() {
+	  return {
+		  items: []
+	  }
+	},
+	created(){
+		
+		fetch('http://localhost:8080/api/userList')
+			.then(function(response) {
+				return response.json();
+			})
+			.then(function(myJson) {
+				console.log(myJson);
+				app.items = myJson
+			});
+	}
+  }).mount('#app')
+</script>
+</body>
+</html>
